@@ -11,7 +11,8 @@ package GraphFramework;
 public class Edge {
     int a=0;
     int aa=1;
-    int a=000;
+    int ae=000;
+    int ssk=0;
     
     
 }
