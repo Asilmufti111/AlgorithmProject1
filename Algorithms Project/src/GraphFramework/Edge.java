@@ -9,5 +9,8 @@ package GraphFramework;
  * @author asil
  */
 public class Edge {
+    int a=0;
+    int aa=1;
+    
     
 }
