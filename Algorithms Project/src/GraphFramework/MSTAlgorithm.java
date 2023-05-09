@@ -1,13 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package GraphFramework;
 
-/**
- *
- * @author asil
+/*
+ *  @authors Asil, Qamar, Arub,Khalida
+ * B9A
+ * CPCS-324
+ * Project Code
+ * 18th may. 2023
  */
-public class MSTAlgorithm {
+
+public abstract class MSTAlgorithm {
+       Edge[] MSTResultList;
     
-}
+    
+     /*
+      * This is the class Constructor
+      */
+	public MSTAlgorithm() {
+		Edge[] MSTResultList = this.MSTResultList;
+	}
+	
+	public void findMST(Graph Graph) {
+		
+	}
+
+	public void displayResultingMST() {
+		
+	} // End of Method
+	
+	public void displayMSTcost() {
+	}
+	
+} // End of Class
