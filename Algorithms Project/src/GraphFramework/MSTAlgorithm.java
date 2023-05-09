@@ -1,7 +1,7 @@
 package GraphFramework;
 
 /*
- *  @authors Asil, Qamar, Arub,Khalida
+ *  @authors Asil, Qamar, Aroub,Khalida
  * B9A
  * CPCS-324
  * Project Code
@@ -9,25 +9,16 @@ package GraphFramework;
  */
 
 public abstract class MSTAlgorithm {
-       Edge[] MSTResultList;
-    
-    
-     /*
-      * This is the class Constructor
-      */
-	public MSTAlgorithm() {
-		Edge[] MSTResultList = this.MSTResultList;
-	}
-	
-	public void findMST(Graph Graph) {
-		
-	}
 
-	public void displayResultingMST() {
-		
-	} // End of Method
+	Edge[] MSTResultList;
+
+	public MSTAlgorithm() {
+		Edge[] MSTResultList = this.MSTResultList;}
 	
-	public void displayMSTcost() {
-	}
+	public void findMST(Graph Graph) {}
+
+	public void displayResultingMST() {} 
 	
-} // End of Class
+	public void displayMSTcost() {}
+	
+} 
