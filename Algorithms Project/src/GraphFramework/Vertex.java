@@ -1,4 +1,3 @@
-
 package GraphFramework;
 
 import java.util.LinkedList;
@@ -6,21 +5,18 @@ import java.util.LinkedList;
 /**
  *
  * @author asil
-/*
- *  @authors Asil, Qamar, Aroub,Khalida
- * B9A
- * CPCS-324
- * Project Code
- * 18th may. 2023
+/
+ *
+ * @authors Asil, Qamar, Aroub,Khalida B9A CPCS-324 Project Code 18th may. 2023
  */
 public class Vertex {
 
-    String label; 
+    String label;
     Boolean isVisited;
-    LinkedList <Edge> adjList; 
-    
+    LinkedList<Edge> adjList;
+
     public Vertex() {
-        adjList = new LinkedList<Edge>() ;
+        adjList = new LinkedList<Edge>();
     }
 
     public Vertex(String label) { //creating new vertex
@@ -31,4 +27,13 @@ public class Vertex {
 
     public void displayInfo() {
     }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
 }
