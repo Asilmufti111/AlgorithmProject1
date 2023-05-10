@@ -13,7 +13,7 @@ public abstract class MSTAlgorithm {
 	Edge[] MSTResultList;
 
 	public MSTAlgorithm() {
-		Edge[] MSTResultList = this.MSTResultList;}
+		Edge[] MSTresultList = this.MSTResultList;}
 	
 	public void findMST(Graph Graph) {}
 
