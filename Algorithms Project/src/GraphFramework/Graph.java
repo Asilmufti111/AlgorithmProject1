@@ -28,6 +28,8 @@ public class Graph {
         this.isDigraph= isDigraph;
         this.vertices = new Vertex[verticesNo]; 
     }
+    public Graph() {
+    }
 
     public void makeGraph(int verticesNo, int edgeNo) {
            
