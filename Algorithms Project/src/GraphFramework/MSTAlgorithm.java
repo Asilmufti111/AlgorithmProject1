@@ -10,10 +10,10 @@ package GraphFramework;
 
 public abstract class MSTAlgorithm {
 
-	Edge[] MSTResultList;
+	Edge[] MSTresultList;
 
 	public MSTAlgorithm() {
-		Edge[] MSTresultList = this.MSTResultList;}
+		Edge[] MSTresultList = this.MSTresultList;}
 	
 	public void findMST(Graph Graph) {}
 
