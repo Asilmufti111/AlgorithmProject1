@@ -93,6 +93,12 @@ public class Graph {
             scan.close();
             
     	} 
+	
+	public Vertex createVertex(String label) {
+    	return new Vertex(label);}
+    
+	public Edge createEdge(Vertex v, Vertex u, int w) {
+    	return new Edge(v, u, w);}
 
     public Edge addEdge(String v, String u, int w){
 		
