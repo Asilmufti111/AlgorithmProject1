@@ -1,5 +1,6 @@
 package GraphFramework;
 
+
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
  * B9A
@@ -7,18 +8,22 @@ package GraphFramework;
  * Project Code
  * 18th may. 2023
  */
-
 public abstract class MSTAlgorithm {
 
-	Edge[] MSTresultList;
+    Edge[] MSTresultList;
 
-	public MSTAlgorithm() {
-		Edge[] MSTresultList = this.MSTresultList;}
-	
-	public void findMST(Graph Graph) {}
+    public MSTAlgorithm() {
+        Edge[] MSTresultList = this.MSTresultList;
+    }
 
-	public void displayResultingMST() {} 
-	
-	public void displayMSTcost() {}
-	
-} 
+    public void findMST(Graph Graph) {
+    }
+
+    public void displayResultingMST() {
+    }
+
+    public void displayMSTcost() {
+    }
+
+}
+
