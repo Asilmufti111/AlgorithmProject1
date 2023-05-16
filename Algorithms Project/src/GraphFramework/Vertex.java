@@ -2,12 +2,12 @@ package GraphFramework;
 
 import java.util.LinkedList;
 
-/**
- *
- * @author asil
-/
- *
- * @authors Asil, Qamar, Aroub,Khalida B9A CPCS-324 Project Code 18th may. 2023
+/*
+ *  @authors Asil, Qamar, Aroub,Khalida
+ * B9A
+ * CPCS-324
+ * Project Code
+ * 18th may. 2023
  */
 public class Vertex {
 
