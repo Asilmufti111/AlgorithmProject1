@@ -4,13 +4,17 @@ import GraphFramework.Edge;
 import GraphFramework.Graph;
 import GraphFramework.Vertex;
 
+/*
+ *  @authors Asil, Qamar, Aroub,Khalida
+ * B9A
+ * CPCS-324
+ * Project Code
+ * 18th may. 2023
+ */
 public class BluePrintGraph extends Graph {
 
-    /**
-     * auto constructor 
-     */
     public BluePrintGraph() {
-        
+
     }
 
     // Create Vertex
@@ -26,3 +30,4 @@ public class BluePrintGraph extends Graph {
     }
 
 }
+
