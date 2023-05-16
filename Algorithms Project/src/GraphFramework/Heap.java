@@ -1,3 +1,5 @@
+package GraphFramework;
+
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
  * B9A
@@ -5,75 +7,122 @@
  * Project Code
  * 18th may. 2023
  */
-
+// Java Program to Implement Heaps by Illustrating Min edges
 public class Heap {
-    
-    public Heap(int noOfVertices) { // public constructor
-	heapArray = new int[noOfVertices+1];
-	p_v = new int[noOfVertices+1]; 
-	key_v = new int[noOfVertices+1];
-	}
-	
-	public void insert(int v, int key_value) { // insert new value into heap
-		s = s+1; // tree pointer
-		heapArray[s] = v;
-		p_v[v] = s;
-		key_v[v] = key_value;
-		heapify_up(s);
-	}
-		
-	private void heapify_up(int i) { // organize tree from least to greatest
-		int j = 0, temp = 0;
-		while(i>1) {
-			j = (int) Math.floor(i/2);
-			if (key_v[heapArray[i]]<key_v[heapArray[j]]) { // if the current element is smaller than the entered element
-				temp = heapArray[i];                   // swap the elements 
-				heapArray[i] = heapArray[j];
-				heapArray[j] = temp;
-				p_v[heapArray[i]] = i;
-				p_v[heapArray[j]] = j;
-				i=j;				
-			} else break;
-		}	
-	}
 
-	public int extract_min() { 
-		int ret = heapArray[1]; // extract the first element (meaning the smallest element)
-		heapArray[1] = heapArray[s];
-		p_v[heapArray[1]] = 1;
-		s = s-1;
-		if (s >=1) {
-			heapify_down(1);
-			}
-		return ret;
-	}
+    // variables of this class
+    Graph graph;
+    Edge[] edges;
+    int size = 0;
 
-	private void heapify_down(int i) { // removes last element from tree
-		int j,temp;                // replaces it with last element from the bottom
-		while(2*i<=s) {            // perculates down until it reaches proper position
-			if(2*i==s || key_v[heapArray[2*i]]<=key_v[heapArray[2*i+1]]) {
-				j = 2*i;
-			}
-			else j = 2*i+1;
-			if(key_v[heapArray[j]]<key_v[heapArray[i]]) {
-				temp = heapArray[i];
-				heapArray[i] = heapArray[j];
-				heapArray[j] = temp;
-				p_v[heapArray[i]] = i;
-				p_v[heapArray[j]] = j;
-				i=j;
-			}
-			else break;
-		}
-	}
-	
-	public void decrease_key(int v, int key_value) {
-		key_v[v] = key_value;
-		heapify_up(p_v[v]);
-	}
-	
-	protected int s;
-	protected int[] heapArray;
-	protected int[] p_v;
-	protected int[] key_v;
+    // Initializing front as static with unity
+    private static final int FRONT = 1;
+
+    // Constructor of this class
+    public Heap() {
+        // This keyword refers to current object itself
+        this.size = 0;
+        edges = new Edge[graph.verticesNo + 1];;
+        edges[0].weight = Integer.MIN_VALUE;
+    }
+
+    // Returning the position of the
+    // left child for the node currently at pos
+    private int leftChild(int pos) {
+        return (2 * pos);
+    }
+
+    // Returning the position of
+    // the right child for the node currently at pos
+    private int rightChild(int pos) {
+        return (2 * pos) + 1;
+    }
+
+    // Returning true if the passed
+    // node is a leaf node
+    private boolean isLeaf(int pos) {
+
+        if (pos > (size / 2)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // To swap two nodes of the edges
+    private void swap(int fpos, int spos) {
+
+        int tmp;
+        tmp = edges[fpos].weight;
+        edges[fpos] = edges[spos];
+        edges[spos].weight = tmp;
+    }
+
+    // To heapify the node at pos
+    private void minHeapify(int pos) {
+        if (!isLeaf(pos)) {
+            int swapPos = pos;
+            // swap with the minimum of the two children
+            // to check if right child exists. Otherwise default value will be '0'
+            // and that will be swapped with parent node.
+            if (rightChild(pos) <= size) {
+                swapPos = edges[leftChild(pos)].weight < edges[rightChild(pos)].weight ? leftChild(pos) : rightChild(pos);
+            } else {
+                swapPos = leftChild(pos);
+            }
+
+            if (edges[pos].weight > edges[leftChild(pos)].weight || edges[pos].weight > edges[rightChild(pos)].weight) {
+                swap(pos, swapPos);
+                minHeapify(swapPos);
+            }
+
+        }
+    }
+
+    // To insert a node into the edges
+    public void insert(Edge element) {
+
+        if (size >= edges.length) {
+            return;
+        }
+
+        edges[++size] = element;
+        int current = size;
+
+        while (edges[current].weight < edges[edges[current].parent(current)].weight) {
+            swap(current, edges[current].parent(current));
+            current = edges[current].parent(current);
+        }
+    }
+
+    // To print the contents of the edges
+    public void displayInfo() {
+        for (int i = 1; i <= size / 2; i++) {
+
+            // Printing the parent and both childrens
+            System.out.print(" PARENT : " + edges[i]
+                    + " LEFT CHILD : " + edges[2 * i]
+                    + " RIGHT CHILD :" + edges[2 * i + 1]);
+
+            // By here new line is required
+            System.out.println();
+        }
+    }
+
+    // To remove and return the minimum
+    // element from the edges
+    public Edge remove() {
+
+        Edge popped = edges[FRONT];
+        edges[FRONT] = edges[size--];
+        minHeapify(FRONT);
+
+        return popped;
+    }
+
+    boolean isEmpty() {
+        return size == 0;
+    }
+
 }
+
