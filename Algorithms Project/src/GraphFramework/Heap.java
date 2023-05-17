@@ -11,19 +11,19 @@ package GraphFramework;
 public class Heap {
 
     // variables of this class
-    Graph graph;
+    Graph graph=new Graph();
     Edge[] edges;
     int size = 0;
 
     // Initializing front as static with unity
-    private static final int FRONT = 1;
+    private static final Edge root=new Edge();
 
     // Constructor of this class
     public Heap() {
         // This keyword refers to current object itself
         this.size = 0;
         edges = new Edge[graph.verticesNo + 1];;
-        edges[0].weight = Integer.MIN_VALUE;
+        root.weight = Integer.MIN_VALUE;
     }
 
     // Returning the position of the
@@ -86,12 +86,13 @@ public class Heap {
             return;
         }
 
-        edges[++size] = element;
+        edges[size] = element;
         int current = size;
 
         while (edges[current].weight < edges[edges[current].parent(current)].weight) {
             swap(current, edges[current].parent(current));
             current = edges[current].parent(current);
+            size++;
         }
     }
 
@@ -113,9 +114,9 @@ public class Heap {
     // element from the edges
     public Edge remove() {
 
-        Edge popped = edges[FRONT];
-        edges[FRONT] = edges[size--];
-        minHeapify(FRONT);
+        Edge popped = edges[root.weight];
+        edges[root.weight] = edges[size--];
+        minHeapify(root.weight);
 
         return popped;
     }
