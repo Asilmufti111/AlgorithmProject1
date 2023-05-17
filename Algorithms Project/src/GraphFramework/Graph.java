@@ -17,6 +17,8 @@ public class Graph {
     int edgeNo;
     Boolean isDigraph;
     Vertex[] vertices;
+    Graph map;
+    
 
     public Graph(int verticesNo, int edgeNo, boolean isDigraph) {
         this.verticesNo = verticesNo;
@@ -30,9 +32,8 @@ public class Graph {
 
     public void makeGraph(int verticesNo, int edgeNo) {
 
-        for (Vertex i : vertices) {
-            int label = Integer.parseInt(i.label);
-            vertices[label] = new Vertex(i.label);
+        for (int i = 0; i<verticesNo;i++) {
+            vertices[i] = new Vertex(i+"");
         } //store all vertices 
 
         for (int i = 0; i < verticesNo - 1; i++) { //at least connect all vertices
@@ -103,8 +104,10 @@ public class Graph {
         return new Edge(v, u, w);
     }
 
-    public Edge addEdge(String v, String u, int w) {
+    public Edge addEdge( String v, String u, int w) {
 
+        Graph map = new Graph();
+        
         int intV = Integer.parseInt(v); //typecast source label (String->int) to be able to access its index in vertices[]
 
         int intU = Integer.parseInt(u); //typecast target label (String->int) to be able to access its index in vertices[]
@@ -113,15 +116,15 @@ public class Graph {
 
             verticesNo++;           //increment no of vertices
 
-            vertices[intV] = new Vertex(v); // add this source vertex in vertice[]
+            vertices[intV] = map.createVertex(v); // add this source vertex in vertice[]
         }
 
         if (vertices[intU] == null) {//if target vertex is not in array 	
             verticesNo++;  //increment no of vertices
-            vertices[intU] = new Vertex(u); // add this target vertex in vertice[]     		
+            vertices[intU] = map.createVertex(u); // add this target vertex in vertice[]     		
         }
 
-        Edge createEdge = new Edge(vertices[intV], vertices[intU], w); //create new edge object between source and target 
+        Edge createEdge = map.createEdge(vertices[intV], vertices[intU], w); //create new edge object between source and target 
 
         edgeNo++; //increment no of edegs
 
@@ -129,7 +132,7 @@ public class Graph {
 
         if (!isDigraph) { //if graph is undirected 	
 
-            createEdge = new Edge(vertices[intU], vertices[intV], w);  //add edge from target to source (opposite way)  		 
+            createEdge = map.createEdge(vertices[intU], vertices[intV], w);  //add edge from target to source (opposite way)  		 
 
             edgeNo++; // increment no of edegs
 
