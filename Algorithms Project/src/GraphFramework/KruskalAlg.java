@@ -36,9 +36,9 @@ public class KruskalAlg extends MSTAlgorithm {
 
             src = graph.vertices[label];
 
-            for (Edge j : src.adjList) {//loop thro all source vertices
-
-                edges.add(src.adjList.get(j.weight));
+            for (int j =0 ;j<src.adjList.size();j++) {//loop thro all source vertices
+                
+                edges.add(j,src.adjList.get(j));
             }
         }//store ALL edges in edges<>()}
 
@@ -51,7 +51,7 @@ public class KruskalAlg extends MSTAlgorithm {
         // Loop through ALL edges
         for (int edgeCounter = 0; edgeCounter < MSTresultList.length - 1;) {
 
-            edge = edges.remove(edges.size()); //remove last element, which has the least weight
+            edge = edges.remove(edges.size()-1); //remove last element, which has the least weight
             src = edge.source; //assign source to a vertex
             trgt = edge.target;//assign target to a vertex
 
@@ -75,13 +75,12 @@ public class KruskalAlg extends MSTAlgorithm {
 
     public void makeSet(Vertex[] quickFindDS) { //make all vertices into singleton sets
 
-        for (Vertex i : quickFindDS) { //loop through all vertices
+        for (int i= 0;i<quickFindDS.length;i++) { //loop through all vertices
 
-            int label = Integer.parseInt(i.label);  //convert label (String ->int)
 
-            Vertex singleton = new Vertex(i.label); //create singleton set 
+            Vertex singleton = new Vertex(i+""); //create singleton set 
 
-            quickFindDS[label] = singleton;
+            quickFindDS[i] = singleton;
         } //edit label with singleton set
 
     }
