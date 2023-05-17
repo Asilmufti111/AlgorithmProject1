@@ -150,30 +150,38 @@ public class KruskalAlg extends MSTAlgorithm {
 
         }
     }
-
+  
     public void displayResultingMST() {
-
-        for (int i = 0; i < MSTresultList.length - 1; i++) { //go through all edges
-
-            Vertex v = MSTresultList[i].source; //source vertex of edge i
-
-            v.displayInfo();
-            System.out.print(" - "); //print info of source
-
-            Vertex u = MSTresultList[i].target; //target vertex of edge i
-
-            u.displayInfo();
-            System.out.print(" : line name: line x" + (MSTresultList[i].source.label + 1) + " ");//print info of target
-
-            Edge e = MSTresultList[i]; //edge i (starting from min edge)
-
+        // Office No. A – Office No. B :
+        // Output as required: line length: x
+        for (int i = 0; i < MSTresultList.length - 1; i++) {
+            
+            System.out.print("Office No. ");
+                
+            Vertex vf = MSTresultList[i].source;
+                   
+            vf.displayInfo();
+            
+            System.out.print(" - ");
+            
+            System.out.print("Office No. ");
+            
+            Vertex vs = MSTresultList[i].target;
+            
+            vs.displayInfo();
+            
+            System.out.print(" : line length: " + (MSTresultList[i].weight) + " ");
+            
+            Edge e = MSTresultList[i];
+            
             e.displayInfo();
-            System.out.println();  //print info of edge 
+            
+            System.out.println();
         }
     }
 
     @Override
     public void displayMSTcost() {
-        System.out.println("The cost of designed lines: " + this.cost);
+        System.out.println("The cost of designed phone network: " + this.cost);
     }
 }
