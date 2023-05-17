@@ -26,6 +26,7 @@ public class Vertex {
     }
 
     public void displayInfo() {
+        System.out.print(label+" ");
     }
 
     public void setLabel(String label) {
