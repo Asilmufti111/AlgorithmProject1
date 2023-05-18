@@ -33,7 +33,7 @@ public class Graph {
     public void makeGraph(int verticesNo, int edgeNo) {
 
         for (int i = 0; i<verticesNo;i++) {
-            vertices[i] = new Vertex(i+"");
+            vertices[i] = createVertex(i+"");
         } //store all vertices 
 
         for (int i = 0; i < verticesNo - 1; i++) { //at least connect all vertices
