@@ -42,7 +42,7 @@ public class KruskalAlg extends MSTAlgorithm {
             }
         }//store ALL edges in edges<>()}
 
-        Collections.reverse(edges); // Sort All Edges in decreasing Order  (using comparable interface in Edge class)
+         Collections.sort(edges,Collections.reverseOrder()); // Sort All Edges in decreasing Order  (using comparable interface in Edge class) 
 
         // 1. (MakeSet) Make Set for Each Vertex
         Vertex[] subset = new Vertex[graph.verticesNo]; // Set the DS as the number of vertices 
