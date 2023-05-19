@@ -1,8 +1,6 @@
 package GraphFramework;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
+import java.util.*;
 
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
@@ -11,61 +9,53 @@ import java.util.Collections;
  * Project Code
  * 18th may. 2023
  */
-public class KruskalAlg extends MSTAlgorithm {
 
+public class KruskalAlg extends MSTAlgorithm {
+    // Map<Vertex, String> subset = new HashMap<>();
+
+    //ArrayList<String> subset = new ArrayList<>();
+    LinkedList<Edge> edges;
     private int cost = 0;
 
     public KruskalAlg(Graph graph) {
-        MSTresultList = new Edge[graph.verticesNo]; // MST List
+        MSTresultList = new LinkedList<>(); // MST List
     }
 
-    @Override
     public void findMST(Graph graph) {
 
-        Vertex src;
+        edges = new LinkedList<>();
 
-        Vertex trgt;
+        for (Vertex i : graph.vertices) {    //go thro all vertice
 
-        Edge edge;
+            for (int j = 0; j < i.adjList.size(); j++) {//loop thro all source vertices
 
-        ArrayList<Edge> edges = new ArrayList<>();
-
-        for (Vertex i : graph.vertices) {    //go thro all vertices
-
-            int label = Integer.parseInt(i.label);
-
-            src = graph.vertices[label];
-
-            for (int j =0 ;j<src.adjList.size();j++) {//loop thro all source vertices
-                
-                edges.add(j,src.adjList.get(j));
+                edges.add(i.adjList.get(j));
             }
         }//store ALL edges in edges<>()}
 
-         Collections.sort(edges,Collections.reverseOrder()); // Sort All Edges in decreasing Order  (using comparable interface in Edge class) 
+        Collections.sort(edges);// Sort All Edges in decreasing Order  (using comparable interface in Edge class)
 
         // 1. (MakeSet) Make Set for Each Vertex
         Vertex[] subset = new Vertex[graph.verticesNo]; // Set the DS as the number of vertices 
         makeSet(subset); // Make set for each vertex
 
         // Loop through ALL edges
-        for (int edgeCounter = 0; edgeCounter < MSTresultList.length - 1;) {
-
-            edge = edges.remove(edges.size()-1); //remove last element, which has the least weight
-            src = edge.source; //assign source to a vertex
-            trgt = edge.target;//assign target to a vertex
-
-            int srcLabel = Integer.parseInt(src.label); //convert label string->int
-            int trgtLabel = Integer.parseInt(trgt.label);//convert label string->int
-
+        for (int edgeCounter = 0; edgeCounter < graph.vertices.size() - 1;) {
+            Edge edge = edges.removeFirst();
+//    edge = edges.(edges.size()-1); //remove last element, which has the least weight
+//            src = edge.source; //assign source to a vertex
+//            trgt = edge.target;//assign target to a vertex
+//
+//            int srcLabel = Integer.parseInt(src.label); //convert label string->int
+//            int trgtLabel = Integer.parseInt(trgt.label);//convert label string->int
             // if source and target vertex are not part of the same set -> perform union between them
-            if (!findSet(Integer.parseInt(subset[srcLabel].label), Integer.parseInt(subset[trgtLabel].label))) {
+            if (!findSet(subset[Integer.parseInt(edge.source.label)].label, subset[Integer.parseInt(edge.target.label)].label)) {
 
                 // make source and target vertex in same subset + update their representative values in the array 
-                union(subset, src, trgt);
+                union(subset, edge.source, edge.target);
 
-                MSTresultList[edgeCounter] = edge; // Add  edge to the MST list	 
-                cost += MSTresultList[edgeCounter].weight; // add edge weight(cost) to total weight
+                MSTresultList.add(edge); // Add  edge to the MST list	 
+                cost += edge.weight; // add edge weight(cost) to total weight
 
                 edgeCounter++; // increment number of edges added
             }
@@ -75,19 +65,16 @@ public class KruskalAlg extends MSTAlgorithm {
 
     public void makeSet(Vertex[] quickFindDS) { //make all vertices into singleton sets
 
-        for (int i= 0;i<quickFindDS.length;i++) { //loop through all vertices
+        for (int i = 0; i < quickFindDS.length; i++) { //loop through all vertices
+            quickFindDS[i] = new Vertex(i + ""); //create singleton set 
 
-
-            Vertex singleton = new Vertex(i+""); //create singleton set 
-
-            quickFindDS[i] = singleton;
         } //edit label with singleton set
 
     }
 
-    public boolean findSet(int vertex1, int vertex2) { //if element in one subset is found in the other
+    public boolean findSet(String vertex1, String vertex2) { //if element in one subset is found in the other
 
-        return vertex1 == vertex2;// return true
+        return vertex1.equals(vertex2);// return true
     }
 
     public void union(Vertex[] subsets, Vertex src, Vertex trgt) {
@@ -100,9 +87,9 @@ public class KruskalAlg extends MSTAlgorithm {
 
         int trgtRep = Integer.parseInt(subsets[trgtLabel].label); //// get representative of target vertex
 
-        boolean src_Self_Rep = findSet(srcLabel, srcRep); // Find if VV have representative or not
+        boolean src_Self_Rep = findSet(src.label, subsets[srcLabel].label); // Find if VV have representative or not
 
-        boolean trgt_Self_Rep = findSet(trgtLabel, trgtRep); // Find if VU have representative or not
+        boolean trgt_Self_Rep = findSet(trgt.label, subsets[trgtLabel].label); // Find if VU have representative or not
 
         // Check if current VV & VU are representative of set 
         for (int i = 0; i < subsets.length; i++) {
@@ -123,7 +110,6 @@ public class KruskalAlg extends MSTAlgorithm {
         if (((!src_Self_Rep) && (trgt_Self_Rep)) || (src_Self_Rep && trgt_Self_Rep)) {
 
             // then make src label as both of their representatives bcz source value is always less than target value 
-            subsets[srcLabel] = subsets[srcLabel];
             subsets[trgtLabel] = subsets[srcLabel];
         } //source is self represntative and target not self representative 
         else if (src_Self_Rep && (!trgt_Self_Rep)) {
@@ -150,38 +136,19 @@ public class KruskalAlg extends MSTAlgorithm {
 
         }
     }
-  
+
+    @Override
     public void displayResultingMST() {
         // Office No. A – Office No. B :
         // Output as required: line length: x
-        for (int i = 0; i < MSTresultList.length - 1; i++) {
-            
-            System.out.print("Office No. ");
-                
-            Vertex vf = MSTresultList[i].source;
-                   
-            vf.displayInfo();
-            
-            System.out.print(" - ");
-            
-            System.out.print("Office No. ");
-            
-            Vertex vs = MSTresultList[i].target;
-            
-            vs.displayInfo();
-            
-            System.out.print(" : line length: " + (MSTresultList[i].weight) + " ");
-            
-            Edge e = MSTresultList[i];
-            
-            e.displayInfo();
-            
+        for (int i = 0; i < MSTresultList.size(); i++) {
+            MSTresultList.get(i).displayInfo();
+
             System.out.println();
         }
+        System.out.println("The cost of designed phone network: " + this.cost);
+
     }
 
-    @Override
-    public void displayMSTcost() {
-        System.out.println("The cost of designed phone network: " + this.cost);
-    }
 }
+
