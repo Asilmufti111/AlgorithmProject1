@@ -1,6 +1,7 @@
 package GraphFramework;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
@@ -13,7 +14,7 @@ public class Vertex {
 
     String label;
     Boolean isVisited;
-    LinkedList<Edge> adjList;
+    List<Edge> adjList;
 
     public Vertex() {
         adjList = new LinkedList<Edge>();
@@ -26,15 +27,8 @@ public class Vertex {
     }
 
     public void displayInfo() {
-        System.out.print(label+" ");
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getLabel() {
-        return label;
+        System.out.print(label);
     }
 
 }
+
