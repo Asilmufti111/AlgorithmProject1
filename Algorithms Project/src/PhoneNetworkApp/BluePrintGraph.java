@@ -13,8 +13,8 @@ import GraphFramework.Vertex;
  */
 public class BluePrintGraph extends Graph {
 
-    public BluePrintGraph() {
-
+    BluePrintGraph(int verticesNO, int edgesNO, boolean b) {
+        super(verticesNO, edgesNO, b);
     }
 
     // Create Vertex
@@ -30,4 +30,3 @@ public class BluePrintGraph extends Graph {
     }
 
 }
-
