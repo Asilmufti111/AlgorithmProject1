@@ -1,5 +1,7 @@
 package GraphFramework;
 
+import java.util.LinkedList;
+
 
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
@@ -10,20 +12,18 @@ package GraphFramework;
  */
 public abstract class MSTAlgorithm {
 
-    Edge[] MSTresultList;
+    LinkedList<Edge> MSTresultList;
+
+    Graph graph;
 
     public MSTAlgorithm() {
-        Edge[] MSTresultList = this.MSTresultList;
+        MSTresultList = new LinkedList<Edge>();
+
+        graph = new Graph();
     }
 
-    public void findMST(Graph Graph) {
-    }
+    public abstract void findMST(Graph Graph);
 
-    public void displayResultingMST() {
-    }
-
-    public void displayMSTcost() {
-    }
+    public abstract void displayResultingMST();
 
 }
-
