@@ -1,7 +1,6 @@
 package GraphFramework;
 
-import java.util.PriorityQueue;
-
+import java.util.LinkedList;
 
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
@@ -16,36 +15,40 @@ public class MHPrimAlg extends MSTAlgorithm {
     private int cost = 0;
 
     /**
-     * MHPrimAlg Constructor
+     * PQPrimAlg Constructor
      *
      * @param graph
      */
     public MHPrimAlg(Graph graph) {
-        MSTresultList = new Edge[graph.verticesNo]; // Array holds the edges of MST
+        MSTresultList = new LinkedList<>(); // MST List
     }
 
-    /**
-     * Shows Resulting MST
-     */
     @Override
     public void findMST(Graph graph) {
 
-        Vertex vc = graph.vertices[0]; // Current vertex will hold vertex 0.
+        Vertex vc = graph.vertices.getFirst(); // Current vertex will hold vertex 0.
+        Heap minHeap = new Heap(graph.vertices.size());
 
-        Heap minHeap = new Heap();
+        for (Vertex i : graph.vertices) {    //go thro all vertice
+
+            for (int j = 0; j < i.adjList.size(); j++) {//loop thro all source vertices
+
+                minHeap.insert(i.adjList.get(j));
+            }
+        }//store ALL edges in edges<>()}
 
         /**
-         * MHPrim Algorithm Scenario: loop through vertex 0 (as in array
+         * PQPrim Algorithm Scenario: loop through vertex 0 (as in array
          * vertices index)-it- adjacent list (what vertex 0 connected to) Before
-         * adding to THE MIN HEAP check if vertex isVisited or not then Add
-         * adjacent in the MH. Check if vertex target already visited (yes) just
+         * adding to PQ check if vertex isVisited or not then Add adjacent in
+         * Priority Queue. Check if vertex target already visited (yes) just
          * ignore it, else add the edge to the MST Result Mark existing vertex
          * target in MST as isVisited (true) Get the next chosen vertex and
-         * break from MH since we added 1 MST to it
-			 *
+         * break from PQ since we added 1 MST to it
+         *
          */
         // Loop through vertices array (|V|-1)
-        for (int i = 0; i < MSTresultList.length - 1; i++) {
+        for (int i = 0; i < graph.vertices.size() - 1; i++) {
 
             // Loop through adjacent vertices of this vertex
             for (int j = 0; j < vc.adjList.size(); j++) {
@@ -58,15 +61,15 @@ public class MHPrimAlg extends MSTAlgorithm {
                 } // End of if-statement
             } // End loop through adjacent vertices
             while (!minHeap.isEmpty()) {
-                Edge edge = minHeap.remove(); // Remove edge with minimum-weight
+                Edge edge = minHeap.remove(); // Remove edge with minimum-weight edge e*=(v*, u*)
 
                 if (!edge.target.isVisited) {
 
-                    edge.target.isVisited = true; // Mark (target) as visited now 
+                    edge.target.isVisited = true; // Mark u* (target) as visited now 
 
-                    MSTresultList[i] = edge; // Add the target edge to the MST list
+                    MSTresultList.add(i, edge); // Add the target edge to the MST list
 
-                    cost += MSTresultList[i].weight; // Get the cost of minimum-weight edges (MST)
+                    this.cost += MSTresultList.get(i).weight; // Get cost of minimum-weight edges (MST)
 
                     vc = edge.target; // Next Vertex to check adjacent of it
                     break; // exit after adding 1 result to the MST
@@ -75,28 +78,17 @@ public class MHPrimAlg extends MSTAlgorithm {
         } // End For loop of vertices array 
     } // End of Method
 
+    @Override
     public void displayResultingMST() {
         // Office No. A – Office No. B :
         // Output as required: line length: x
-        for (int i = 0; i < MSTresultList.length - 1; i++) {
-            Vertex vf = MSTresultList[i].source;
-            vf.displayInfo();
-            System.out.print(" - ");
-            Vertex vs = MSTresultList[i].target;
-            vs.displayInfo();
-            System.out.print(" : line length: " + (MSTresultList[i].weight) + " ");
-            Edge e = MSTresultList[i];
-            e.displayInfo();
+        for (int i = 0; i < MSTresultList.size(); i++) {
+            MSTresultList.get(i).displayInfo();
+
             System.out.println();
         }
+        System.out.println("The cost of designed phone network: " + this.cost);
+
     }
 
-    /**
-     * Shows only the cost calculated during the displayResultingMST Method
-     */
-    @Override
-    public void displayMSTcost() {
-        System.out.println("The cost of designed phone network: " + this.cost);
-    } // End of Method
-
-} // End of Class
+}
