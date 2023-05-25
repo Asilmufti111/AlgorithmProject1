@@ -13,7 +13,7 @@ import GraphFramework.Vertex;
 public class Office extends Vertex {
 
     public Office(String label) {
-        super("O"+label);
+        super(label);
     }
 
     // Methods
