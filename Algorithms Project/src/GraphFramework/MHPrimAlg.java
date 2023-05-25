@@ -1,6 +1,10 @@
 package GraphFramework;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
@@ -9,79 +13,112 @@ import java.util.LinkedList;
  * Project Code
  * 18th may. 2023
  */
+
 public class MHPrimAlg extends MSTAlgorithm {
+	
+	// Data fields
+	private int cost = 0;
+                
+                
+                Map<String,Integer> vertexVal;
 
-    // Data fields
-    private int cost = 0;
+    // Stores the Minimum spanning Tree
+                List<Edge> result;
+	
+	/**
+	 * PQPrimAlg Constructor
+	 * @param graph
+	 */
+	public MHPrimAlg(Graph graph) {
+        	MSTresultList = new LinkedList<>(); // Array holds the edges of MST
 
-    /**
-     * PQPrimAlg Constructor
-     *
+	}
+	
+	
+	/**
+	 * Shows Resulting MST
      * @param graph
-     */
-    public MHPrimAlg(Graph graph) {
-        MSTresultList = new LinkedList<>(); // MST List
+	 */
+
+        @Override
+	public void findMST(Graph graph) {
+            vertexVal = new LinkedHashMap<>();
+
+        // Stores the Minimum spanning Tree
+           
+            
+            vertexVal = new LinkedHashMap<>();
+
+        // Vertex to Edge Map
+        Map<String, Edge> vertexToEdge = new HashMap<>();
+
+        // Assign all the initial values as infinity for all the Vertices.
+        for(int i = 0 ;i<graph.verticesNo;i++){
+            String v=graph.vertices.get(i).label;
+            vertexVal.put(v,Integer.MAX_VALUE);
+        }
+
+        MinHeap minHeap = new MinHeap(vertexVal);
+
+        // Call buildHeap() to create the MinHeap
+        minHeap.buildHeap();
+
+        // Replace the value of start vertex to 0.
+        minHeap.updateHeap("0",0);
+
+        // Continue until the Min-Heap is not empty.
+        while(!minHeap.empty()){
+            // Extract minimum value vertex from Map in Heap
+           
+            String currentVertex = minHeap.deleteMin();
+            // Need to get the edge for the vertex and add it to the Minimum Spanning Tree..
+            // Just note, the edge for the source vertex will not be added.
+            Edge spanningTreeEdge = vertexToEdge.get(currentVertex);
+            if(spanningTreeEdge != null) {
+                MSTresultList.add(spanningTreeEdge);
+                cost+= spanningTreeEdge.getWeight();
+            }
+
+            // Get all the adjacent vertices and iterate through them.
+            for(Edge edge : getEdges(currentVertex,graph)){
+            
+                String adjacentVertex = edge.target.label;
+                
+                // We check if adjacent vertex exist in 'Map in Heap' and length of the edge is with this vertex
+                // is greater than this edge length.
+                if(minHeap.containsVertex(adjacentVertex) && minHeap.getWeight(adjacentVertex) > edge.weight){
+                
+                    // Replace the edge length with this edge weight.
+                    minHeap.updateHeap(adjacentVertex, edge.weight);
+                    
+                    vertexToEdge.put(adjacentVertex, edge);
+                }
+            }
+        }
     }
 
-    @Override
-    public void findMST(Graph graph) {
+    List<Edge> getEdges(String vertex,Graph graph){
 
-        Vertex vc = graph.vertices.getFirst(); // Current vertex will hold vertex 0.
-        Heap minHeap = new Heap(graph.vertices.size());
+        List<Edge> edgeList = new LinkedList<>();
 
-        for (Vertex i : graph.vertices) {    //go thro all vertice
+       
+        
 
-            for (int j = 0; j < i.adjList.size(); j++) {//loop thro all source vertices
+      Vertex vv = graph.vertices.get(Integer.parseInt(vertex));
+			// Loop through adjacent list of this vertex
+			for(int j=0; j<vv.adjList.size() ; j++) {
+				edgeList.add(vv.adjList.get(j));	
+			} // end of inner for-loop
 
-                minHeap.insert(i.adjList.get(j));
-            }
-        }//store ALL edges in edges<>()}
+        return edgeList;
+    }
 
-        /**
-         * PQPrim Algorithm Scenario: loop through vertex 0 (as in array
-         * vertices index)-it- adjacent list (what vertex 0 connected to) Before
-         * adding to PQ check if vertex isVisited or not then Add adjacent in
-         * Priority Queue. Check if vertex target already visited (yes) just
-         * ignore it, else add the edge to the MST Result Mark existing vertex
-         * target in MST as isVisited (true) Get the next chosen vertex and
-         * break from PQ since we added 1 MST to it
-         *
-         */
-        // Loop through vertices array (|V|-1)
-        for (int i = 0; i < graph.vertices.size() - 1; i++) {
+	
+        
 
-            // Loop through adjacent vertices of this vertex
-            for (int j = 0; j < vc.adjList.size(); j++) {
-                Edge edge = vc.adjList.get(j);
-                edge.source.isVisited = true;
-                // Check if its visited or not before adding it to the queue
-                if (!edge.target.isVisited) {
-                    minHeap.insert(edge); // Remaining edges
-
-                } // End of if-statement
-            } // End loop through adjacent vertices
-            while (!minHeap.isEmpty()) {
-                Edge edge = minHeap.remove(); // Remove edge with minimum-weight edge e*=(v*, u*)
-
-                if (!edge.target.isVisited) {
-
-                    edge.target.isVisited = true; // Mark u* (target) as visited now 
-
-                    MSTresultList.add(i, edge); // Add the target edge to the MST list
-
-                    this.cost += MSTresultList.get(i).weight; // Get cost of minimum-weight edges (MST)
-
-                    vc = edge.target; // Next Vertex to check adjacent of it
-                    break; // exit after adding 1 result to the MST
-                } // End of if-statement
-            } // End of while loop 
-        } // End For loop of vertices array 
-    } // End of Method
-
-    @Override
+ @Override
     public void displayResultingMST() {
-        // Office No. A – Office No. B :
-        // Output as required: line length: x
+
         for (int i = 0; i < MSTresultList.size(); i++) {
             MSTresultList.get(i).displayInfo();
 
@@ -90,5 +127,6 @@ public class MHPrimAlg extends MSTAlgorithm {
         System.out.println("The cost of designed phone network: " + this.cost);
 
     }
+	   
 
-}
+} 
