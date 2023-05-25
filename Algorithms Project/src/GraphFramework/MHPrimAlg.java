@@ -101,10 +101,10 @@ public class MHPrimAlg extends MSTAlgorithm {
 
         List<Edge> edgeList = new LinkedList<>();
 
-       int index = StringtoInt(vertex);
+       
         
 
-      Vertex vv = graph.vertices.get(index);
+      Vertex vv = graph.vertices.get(Integer.parseInt(vertex));
 			// Loop through adjacent list of this vertex
 			for(int j=0; j<vv.adjList.size() ; j++) {
 				edgeList.add(vv.adjList.get(j));	
@@ -113,18 +113,8 @@ public class MHPrimAlg extends MSTAlgorithm {
         return edgeList;
     }
 
-    public int StringtoInt(String label){
+	
         
-        String newLabel="";
-    
-        for(int i=0;i<label.length();i++){
-            
-            if(Character.isDigit(label.charAt(i)))
-            
-            {newLabel+=label.charAt(i);}
-            }
-    
-        return Integer.parseInt(newLabel);}
 
  @Override
     public void displayResultingMST() {
