@@ -16,9 +16,9 @@ public class Edge implements Comparable<Edge> {
     Vertex parent;
 
     public Edge() {
-        source = new Vertex();
-        target = new Vertex();
-        parent = new Vertex();
+       source = new Vertex();
+       target = new Vertex();
+       parent = new Vertex();
         weight = 0;
     }
 
@@ -26,6 +26,38 @@ public class Edge implements Comparable<Edge> {
         this.source = source;
         this.target = target;
         this.weight = weight;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public Vertex getSource() {
+        return source;
+    }
+
+    public void setSource(Vertex source) {
+        this.source = source;
+    }
+
+    public Vertex getTarget() {
+        return target;
+    }
+
+    public void setTarget(Vertex target) {
+        this.target = target;
+    }
+
+    public Vertex getParent() {
+        return parent;
+    }
+
+    public void setParent(Vertex parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -39,7 +71,8 @@ public class Edge implements Comparable<Edge> {
         }
     }
 
-    public int parent(int pos) { // return the parent of the edge's node in the heap
+    public int parent(int pos) { // return the parent of the edge's node in the heap       
+       
         return pos / 2;
     }
 
