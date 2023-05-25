@@ -16,11 +16,11 @@ public class Office extends Vertex {
         super(label);
     }
 
-//    // Methods
-//    @Override
-//    public void setLabel(String label) {
-//        super.setLabel(label);
-//    }
+    // Methods
+    @Override
+    public void setLabel(String label) {
+        super.setLabel("O"+label);
+    }
     @Override
     public void displayInfo() {
         super.displayInfo();
