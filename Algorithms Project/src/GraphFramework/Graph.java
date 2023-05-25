@@ -96,11 +96,11 @@ public class Graph {
     }
 
     public Vertex createVertex(String label) {
-        return new Vertex(label);
+        return null;
     }
 
     public Edge createEdge(Vertex v, Vertex u, int w) {
-        return new Edge(v, u, w);
+        return  null;
     }
 
     public Edge addEdge(Vertex v, Vertex u, int w) {
