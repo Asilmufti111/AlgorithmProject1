@@ -16,6 +16,10 @@ public class BluePrintGraph extends Graph {
     BluePrintGraph(int verticesNO, int edgesNO, boolean b) {
         super(verticesNO, edgesNO, b);
     }
+    BluePrintGraph() {
+        
+    }
+
 
     // Create Vertex
     @Override
@@ -28,5 +32,7 @@ public class BluePrintGraph extends Graph {
     public Edge createEdge(Vertex source, Vertex target, int weight) {
         return new Line(source, target, weight);
     }
+    public void displayInfo(){
+    displayInfo();}
 
 }
