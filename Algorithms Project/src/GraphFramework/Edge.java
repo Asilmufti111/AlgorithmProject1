@@ -15,12 +15,7 @@ public class Edge implements Comparable<Edge> {
     Vertex target;
     Vertex parent;
 
-    public Edge() {
-       source = new Vertex();
-       target = new Vertex();
-       parent = new Vertex();
-        weight = 0;
-    }
+
 
     public Edge(Vertex source, Vertex target, int weight) {
         this.source = source;
