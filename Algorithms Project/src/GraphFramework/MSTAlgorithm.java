@@ -17,7 +17,7 @@ public abstract class MSTAlgorithm {
     Graph graph;
 
     public MSTAlgorithm() {
-        MSTresultList = new LinkedList<Edge>();
+        MSTresultList = new LinkedList<>();
 
         graph = new Graph();
     }
