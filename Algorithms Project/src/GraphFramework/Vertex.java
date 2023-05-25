@@ -20,6 +20,30 @@ public class Vertex {
         adjList = new LinkedList<Edge>();
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public Boolean getIsVisited() {
+        return isVisited;
+    }
+
+    public void setIsVisited(Boolean isVisited) {
+        this.isVisited = isVisited;
+    }
+
+    public List<Edge> getAdjList() {
+        return adjList;
+    }
+
+    public void setAdjList(List<Edge> adjList) {
+        this.adjList = adjList;
+    }
+
     public Vertex(String label) { //creating new vertex
         this.label = label; //value of vertex
         this.isVisited = false; //vertex not visited yet 
