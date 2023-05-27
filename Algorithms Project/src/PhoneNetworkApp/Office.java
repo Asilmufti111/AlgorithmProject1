@@ -24,6 +24,6 @@ public class Office extends Vertex {
     @Override
     public void displayInfo() {
         super.displayInfo();
-    } // End of method
+    } 
 
-} // End of class
+} 
