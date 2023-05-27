@@ -55,7 +55,7 @@ public class MHPrimAlg extends MSTAlgorithm {
         // Assign all the initial values as infinity for all the Vertices.
         for(int i = 0 ;i<graph.verticesNo;i++){
             String v=graph.vertices.get(i).label;
-            vertexVal.put(v,Integer.MAX_VALUE);
+            vertexVal.put(v,Integer.MAX_VALUE);//initialize to infinity (unknown)
         }
 
         MinHeap minHeap = new MinHeap(vertexVal);
@@ -75,8 +75,8 @@ public class MHPrimAlg extends MSTAlgorithm {
             // Just note, the edge for the source vertex will not be added.
             Edge spanningTreeEdge = vertexToEdge.get(currentVertex);
             if(spanningTreeEdge != null) {
-                MSTresultList.add(spanningTreeEdge);
-                cost+= spanningTreeEdge.getWeight();
+                MSTresultList.add(spanningTreeEdge);//add to MST 
+                cost+= spanningTreeEdge.getWeight();//add cost
             }
 
             // Get all the adjacent vertices and iterate through them.
@@ -101,14 +101,11 @@ public class MHPrimAlg extends MSTAlgorithm {
 
         List<Edge> edgeList = new LinkedList<>();
 
-       
-        
-
-      Vertex vv = graph.vertices.get(Integer.parseInt(vertex));
-			// Loop through adjacent list of this vertex
-			for(int j=0; j<vv.adjList.size() ; j++) {
-				edgeList.add(vv.adjList.get(j));	
-			} // end of inner for-loop
+       Vertex vv = graph.vertices.get(Integer.parseInt(vertex));
+                    
+	for(int j=0; j<vv.adjList.size() ; j++) {
+               
+            edgeList.add(vv.adjList.get(j));} 
 
         return edgeList;
     }
