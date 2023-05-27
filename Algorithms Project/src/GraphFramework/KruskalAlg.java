@@ -10,206 +10,136 @@ import java.util.*;
  * 18th may. 2023
  */
 
-// This Class Support Kruskal Algorithm Using Quick Find implementations
-
 public class KruskalAlg extends MSTAlgorithm {
-		// Data fields
-		private int cost = 0;
-		
-	/**
-	 * KruskalAlg Constructor
-	 * @param graph
-	 */
-	public KruskalAlg(Graph graph) {
-		MSTresultList = new LinkedList<>(); // MST List
+    
+    private int cost = 0; //initialize cost of weights with zero 
+
+    Map<String, Node> subsets = new HashMap< >(); //create hashmap to create subsets of vertices 
+
+    ArrayList<Edge> edges = new ArrayList<>(); //create arraylist to store all edges in ascending order 
+    
+    
+    	public KruskalAlg(Graph graph) {
+		MSTresultList = new LinkedList<>(); // MST List to stor MST 
 	}
-	
-	/**
-	 * Shows Resulting MST
-     * @param graph
-	 */
-	@Override
-	public void findMST(Graph graph) {
-		
-		Vertex vv; // Vertex source
-		Vertex vu; // Vertex target
-		Edge edge; // Vertex edge
-		ArrayList<Edge> edges = new ArrayList<>(); //PriorityQueue to store edges weights
-		
-		// Loop through ALL vertices
-		for(int i=0; i< graph.verticesNo; i++) {
-			vv = graph.vertices.get(i);
-			// Loop through adjacent list of this vertex
-			for(int j=0; j<vv.adjList.size() ; j++) {
-				edges.add(vv.adjList.get(j));	
-			} // end of inner for-loop
-		} // end of outer for-loop
-		Collections.sort(edges);
 
-		// Sort All Edges in non-decreasing Order 
-		//Collections.sort(edges); // Edge class implement Java Comparable interface (compare weight)
-		
-		/* Kruskal2 Algorithm Scenario: Loop through minimum-weight edges,
-		 * check each set of these vertices, if they're in different sets we merge them,
-		 * and add them to the MST as disjoint subset of Vertex u* & v* with weight x (as edge)
-		 * if they're in the same set (discovered by findSet) we ignore it simply and continue to the next.
-		 * So,
-		 * 1. makeSet of All vertices
-		 * 2. findSet if they're in different disjoint subsets do (3), else ignore.
-		 * 3. Union sets
-		 */
 
-		// 1. (MakeSet) Make Set for Each Vertex
-		Vertex[] subset = new Vertex[graph.verticesNo]; // Set the DS as the number of vertices 
-		makeSet(subset,graph); // Make set for each vertex
-		int encounter = 0; 
-		
-		// Loop through ALL edges
-		while(encounter <graph.verticesNo-1) {
-			
-			// Get Minimum-weight Edge & its source & target
-			edge = edges.remove(encounter);
-			vv = edge.source;
-			vu = edge.target;
-			
-			// 2. (findSet)Find Representative Subset from the QuickFind Disjoint Sets
-			if(!findSet(StringtoInt(subset[StringtoInt(vv.label)].label), StringtoInt(subset[StringtoInt(vu.label)].label))) {
+    void insertEdges(Graph graph) { //insert all edges in edges arraylist 
+        for(int i= 0; i<graph.verticesNo-1;i++){ //go thro all vertices 
+            for (Edge edge : graph.vertices.get(i).adjList) { //go thro each vertex adjaceny list 
+                edges.add(edge); }} //add each edge to the arraylist 
+    }
 
-				// 3. (Union) Append VT to VU & and update their representative value; 
-				union(subset, vv, vu);			
-				
-				MSTresultList.add(encounter, edge); // Add the target edge to the MST list	 
-				cost += MSTresultList.get(encounter).weight; // Get cost of minimum-weight edges (MST)
+    // Create groups with only one vertex.
+    public void singletonOf(String data){ //crate initial set (Singletons)
 
-				encounter++; // increment number of edges encountered
-			} // End of if-statement
-		} // End of while-loop
-		
-	} // End of Method
-	
-	/**
-     * this method used to create one-element set{x} for all the V in the graph 
-     * @param subset 
-     * @param graph 
-     */
-    public void makeSet(Vertex[] subset,Graph graph) {
-    	
-    	/* loop through # of vertex
-    	   create vertex of each vertex in the array
-    	   making sets means making A alone in set and so on each index hold its own value vertex    
-    	 */
-    	for(int i=0; i < subset.length; i++) {
-    		Vertex vn = graph.vertices.get(i);
-    		subset[i] = vn;
-    	}
-    } // End of makeSet Method
-    
-    /**
-     * 
-     * @param v1
-     * @param v2
-     * @return
-     */
-    public boolean findSet(int v1, int v2){
-    	return v1 == v2;
-    } // End of FindSet Method
-    
-    /**
-     * 
-     * @param subset
-     * @param src
-     * @param trgt
-     */
-    public void union(Vertex[] subset, Vertex src, Vertex trgt) {	
-    	int src_Rep = StringtoInt(subset[StringtoInt(src.label)].label); // get VV representative 
-    	int trgt_Rep = StringtoInt(subset[StringtoInt(trgt.label)].label); // get VU representative
-    	
-    	boolean is_src_self_Rep = findSet(StringtoInt(src.label), src_Rep); // Find if VV have representative or not
-    	boolean is_trgt_self_Rep = findSet(StringtoInt(trgt.label), trgt_Rep); // Find if VU have representative or not
-    		
-    	/** Loop Scenario:
-    	 * We found for example vvNoRepresentative value (true) when it actually had its own as representative
-    	 * Because VV actually was the representative of the set. therefore, it had it own number,
-    	 * So, performing the loop below will let us know if this is actually happened or not.
-    	 * (if VV is the representative of the set so that's why VV have its own number),
-    	 * this is why we set the booleans variable as false again because -> VV has representative, and its VV itself.
-    	 */
-    	
-    	// Check if current VV & VU are representative of set 
-    	for(int i=0; i<subset.length; i++) {
-    		
-    		// Check the (quickFindDs array if VV is representative of other vertex) && (excluding their own)
-    		if(src_Rep == StringtoInt(subset[i].label) && (i != StringtoInt(src.label))) {
-    			is_src_self_Rep = false; // false when VV have itself is other vertex representative
-    		} // End of if-statement
-    		
-    		// Check the (quickFindDs array if VU is representative of other vertex) && (excluding their own)
-    		if(trgt_Rep == StringtoInt(subset[i].label) && (i != StringtoInt(trgt.label))) {
-    			is_trgt_self_Rep = false; // false when VV have itself is other vertex representative
-    			
-    		} // End of if-statement
-    		
-    	} // End of for-loop
-    	
-    	
-    	// if VV have -a- representative and VU have -no- representative OR VV & VU (both) have -no- representative
-    	if( ((!is_src_self_Rep) && (is_trgt_self_Rep)) || (is_src_self_Rep && is_trgt_self_Rep)) {
-    		
-    		// Make VV is the new representative
-    		subset[StringtoInt(src.label)] = subset[StringtoInt(src.label)];
-    		subset[StringtoInt(trgt.label)] = subset[StringtoInt(src.label)];
-    	} // End of if-statement
-    	
-    	
-    	// if VV have -no- representative and VU have -a- representative
-    	else if (is_src_self_Rep && (!is_trgt_self_Rep)) {
-    		subset[StringtoInt(src.label)] = subset[StringtoInt(trgt.label)];
-    	} // End of else-if
-    	
-    	
-    	// VV & VU (both) have -a- representative
-    	else {
-    		
-       	    int max_Rep = Math.max(src_Rep, trgt_Rep); // Get max representative to overwrite its children
-    		int min_Rep = Math.min(src_Rep, trgt_Rep); // Get minimum to set it as the new representative
-    		
-    		// Loop through the QuickFind Disjoint Subset
-	    	 for(int i=0; i<subset.length; i++) {
-	    		 
-	    		 // Find all the children of the max representative
-	    		 if(StringtoInt(subset[i].label) == max_Rep) {
-	    			 subset[i] = subset[min_Rep]; // Update all representatives to the minimum Representative
-	    			 
-	    		 } // End of if-statement
-	    	 } // End of for-loop
-    	} // End of else
-    } // End of Union method
-    
+        Node node = new Node(); //new node 
+        node.data = data; //vertex label 
+        node.rank = 0; //each vertex leader of its own group
+        node.representative = node; //vertex representative is itself first
+        subsets.put(data, node); //add this label and this node to subsets to initially create singleton 
+    }
 
-    public int StringtoInt(String label){
- 
-        String newLabel="";
-    
-        for(int i=0;i<label.length();i++){
-            
-            if(Character.isDigit(label.charAt(i)))
-            
-            {newLabel+=label.charAt(i);}
+    //Combines two groups into one. Does union by rank.
+    public void union(String vertex1, String vertex2){
+
+        Node node1 = subsets.get(vertex1); //get vertex 1 and vertex 2
+        Node node2 = subsets.get(vertex2);
+
+        Node representative1 = findSet(node1); //find representative of each node an dreturn it 
+        Node representative2 = findSet(node2);
+
+        //If they are in the same group, do nothing.
+        if(representative1.data.equals(representative2.data)) {
+
+            return;
+        }
+        //Else whose rank is higher becomes parent of other.
+        if (representative1.rank <= representative2.rank) {
+
+            //Increment rank only if both sets have same rank.
+            representative1.rank = (representative1.rank == representative2.rank) ? representative1.rank + 1 : representative1.rank; //increment rank of source if both equal
+            representative1.representative = representative2; //make rep of 1 = rep of 2 (2 is parent of 1)
+        }
+        else {
+
+            representative2.representative = representative1;//if rank1 > rank 2 make rep of 2 = rep of 1 (1 is parent of 2)
+        }
+    }
+
+    // Find the representative of this set
+
+    public String findSet(String data){
+
+        return findSet(subsets.get(data)).data;//get data of certain node using vertex label 
+    }
+
+    // Finds the leader/representative recursivly and does PATH COMPRESSION as well.
+    private Node findSet(Node node){
+
+        Node representative = node.representative; //get rep of node 
+        if (representative == node) { //if node is representative of itself  (base case)
+
+            return representative;//return representative 
+        }
+        node.representative = findSet(node.representative);//else fin its representitive recursively 
+        return node.representative;//return representative
+    }
+
+
+    // Find Minimum Spanning Tree using Kruskal's Algorithm.
+    @Override
+    public void findMST(Graph graph) {
+        
+        insertEdges(graph);  //add all edges
+
+        
+        Collections.sort(edges);//Sort all edges in Ascending order.
+
+       
+        for (Vertex vertex : graph.vertices) { //Create singletons of all vertices in my graph
+
+            singletonOf(vertex.label);
+        }
+
+        for (Edge edge : edges) { //for all edges
+
+            //Get each set of the two vertices of the edge.
+            String root1 = findSet(edge.source.label);
+            String root2 = findSet(edge.target.label);
+
+            //check if the vertices are on the same or different set.
+           
+            if (root1.equals(root2)) { //If vertices are in the same set then don't add edge because vertex alreadt in MST 
             }
-    
-        return Integer.parseInt(newLabel);}
+            else {
+
+                // If vertices are in different sets then add the edge to result and union 
+                // these two sets into one.
+                
+                MSTresultList.add(edge);//add in MST
+                cost+=edge.getWeight();
+                union(edge.source.label, edge.target.label); //create union between source and edge
+            }
+        }
+    }
     
  @Override
     public void displayResultingMST() {
-        // Office No. A – Office No. B :
-        // Output as required: line length: x
-        for (int i = 0; i < MSTresultList.size(); i++) {
-            MSTresultList.get(i).displayInfo();
+
+        for (int i = 0; i < MSTresultList.size(); i++) { //for all MST 
+            
+            MSTresultList.get(i).displayInfo(); //display info for each edge
 
             System.out.println();
         }
-        System.out.println("The cost of designed phone network: " + this.cost);
+        System.out.println("The cost of designed phone network: " + this.cost); //total cost
 
     }
+}
+    class Node { //representative of a vertex
 
+    String data; //vertex label 
+    int rank;
+    Node representative; //node parent (who is its representative?)
 }
