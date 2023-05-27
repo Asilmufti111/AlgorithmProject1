@@ -3,6 +3,8 @@ package PhoneNetworkApp;
 import GraphFramework.Edge;
 import GraphFramework.Graph;
 import GraphFramework.Vertex;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
@@ -13,9 +15,16 @@ import GraphFramework.Vertex;
  */
 public class BluePrintGraph extends Graph {
 
-    BluePrintGraph(int verticesNO, int edgesNO, boolean b) {
-        super(verticesNO, edgesNO, b);
+    
+    
+    BluePrintGraph(int verticesNo, int edgesNo, boolean b) {
+        super(verticesNo, edgesNo, b);
     }
+    
+    BluePrintGraph(File graphfile) throws FileNotFoundException{
+    
+        super(graphfile);}
+    
     BluePrintGraph() {
         
     }
