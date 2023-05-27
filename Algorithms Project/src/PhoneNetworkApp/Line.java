@@ -21,10 +21,14 @@ public class Line extends Edge {
     // Methods
     @Override
     public void displayInfo() {
+
         
-        System.out.print("Office No. " +super.getSource().getLabel() );
+        System.out.print("Office No. " + super.getSource().getLabel() );
+        
         System.out.print(" - ");
+        
         System.out.print("Office No. " + super.getTarget().getLabel() +" ");
+        
         System.out.print("line length: " + getIlength());
     } // End of Method
 
