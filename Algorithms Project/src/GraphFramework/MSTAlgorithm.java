@@ -12,17 +12,17 @@ import java.util.LinkedList;
  */
 public abstract class MSTAlgorithm {
 
-    LinkedList<Edge> MSTresultList;
+    LinkedList<Edge> MSTresultList; //to stor MST 
 
-    Graph graph;
+    Graph graph; //graph to store all vertices 
 
-    public MSTAlgorithm() {
+    public MSTAlgorithm() { //perform each algorithm
         MSTresultList = new LinkedList<>();
 
         graph = new Graph();
     }
 
-    public abstract void findMST(Graph Graph);
+    public abstract void findMST(Graph Graph);//to be implemented 
 
     public abstract void displayResultingMST();
 
