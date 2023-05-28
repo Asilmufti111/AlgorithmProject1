@@ -30,6 +30,7 @@ public class MHPrimAlg extends MSTAlgorithm {
 	 * @param graph
 	 */
 	public MHPrimAlg(Graph graph) {
+            
         	MSTresultList = new LinkedList<>(); // Array holds the edges of MST
 
 	}
@@ -54,7 +55,7 @@ public class MHPrimAlg extends MSTAlgorithm {
 
         // Assign all the initial values as infinity for all the Vertices.
         for(int i = 0 ;i<graph.verticesNo;i++){
-            String v=graph.vertices.get(i).label;
+            String v=graph.vertices.get(i).getLabel();
             vertexVal.put(v,Integer.MAX_VALUE);//initialize to infinity (unknown)
         }
 
@@ -82,14 +83,14 @@ public class MHPrimAlg extends MSTAlgorithm {
             // Get all the adjacent vertices and iterate through them.
             for(Edge edge : getEdges(currentVertex,graph)){
             
-                String adjacentVertex = edge.target.label;
+                String adjacentVertex = edge.getTarget().getLabel();
                 
                 // We check if adjacent vertex exist in 'Map in Heap' and length of the edge is with this vertex
                 // is greater than this edge length.
-                if(minHeap.containsVertex(adjacentVertex) && minHeap.getWeight(adjacentVertex) > edge.weight){
+                if(minHeap.containsVertex(adjacentVertex) && minHeap.getWeight(adjacentVertex) > edge.getWeight()){
                 
                     // Replace the edge length with this edge weight.
-                    minHeap.updateHeap(adjacentVertex, edge.weight);
+                    minHeap.updateHeap(adjacentVertex, edge.getWeight());
                     
                     vertexToEdge.put(adjacentVertex, edge);
                 }
@@ -103,9 +104,9 @@ public class MHPrimAlg extends MSTAlgorithm {
 
        Vertex vv = graph.vertices.get(Integer.parseInt(vertex));
                     
-	for(int j=0; j<vv.adjList.size() ; j++) {
+	for(int j=0; j<vv.getAdjList().size() ; j++) {
                
-            edgeList.add(vv.adjList.get(j));} 
+            edgeList.add(vv.getAdjList().get(j));} 
 
         return edgeList;
     }
