@@ -22,7 +22,13 @@ public class Line extends Edge {
     @Override
     public void displayInfo() {
 
-
+        String srcLabel =  super.getSource().getLabel();
+        
+        super.getSource().setLabel("O"+srcLabel);
+        
+        String trgtLabel =  super.getTarget().getLabel();
+        
+        super.getTarget().setLabel("O"+trgtLabel);
 
         System.out.print("Office No. " + super.getSource().getLabel() );
         
@@ -30,6 +36,12 @@ public class Line extends Edge {
         
         System.out.print("Office No. " + super.getTarget().getLabel() +" ");
 
+                
+        super.getSource().setLabel(srcLabel);
+        
+        
+        super.getTarget().setLabel(trgtLabel);
+        
         
         System.out.print("line length: " + getIlength());
     } // End of Method
