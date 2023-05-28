@@ -19,7 +19,7 @@ public class Office extends Vertex {
     // Methods
     @Override
     public void setLabel(String label) {
-        super.setLabel("O"+label);
+        super.setLabel(label);
     }
     @Override
     public void displayInfo() {
