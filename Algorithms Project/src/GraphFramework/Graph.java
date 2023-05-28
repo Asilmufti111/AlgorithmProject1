@@ -2,8 +2,8 @@ package GraphFramework;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Vector;
 
 /*
  *  @authors Asil, Qamar, Aroub,Khalida
@@ -17,7 +17,7 @@ public class Graph {
     int verticesNo;
     int edgeNo;
     Boolean isDigraph = false;
-    Vector<Vertex> vertices = new Vector();
+    ArrayList<Vertex> vertices = new ArrayList<>();
 
     public Graph(int verticesNo, int edgeNo, boolean isDigraph) {
         this.verticesNo=verticesNo;
@@ -33,9 +33,8 @@ public class Graph {
     }
 
     public void makeGraph() {
+  
         
-        vertices=new Vector(verticesNo);
-
         for (int i = 0; i < verticesNo; i++) {
             vertices.add(createVertex(i + ""));} //store all vertices 
 
@@ -77,6 +76,7 @@ public class Graph {
 
     public void readGraphFromFile(File fileName) throws FileNotFoundException {
 
+        
         Scanner scan = new Scanner(fileName); // Create Scanner object to read from our file called fileName 
 
         String graphClassification = scan.nextLine(); // what is the type of the graph (directed/undirected)
@@ -93,14 +93,12 @@ public class Graph {
         verticesNo = scan.nextInt(); // read and store number of vertice in total 
         
         edgeNo = scan.nextInt(); // read and store number of edges in total 
-      
-        vertices = new Vector(verticesNo);
-        
+
         if(!isDigraph){
         
             edgeNo*=2;}
                  
-        for(int i= 0; i<edgeNo;i++){
+        while(scan.hasNext()){
 
             String source = (int)(scan.next().charAt(0)) -65 + ""; //read source label and assign it a number e.g A-->1 B-->2 ...etc.
             
@@ -124,31 +122,36 @@ public class Graph {
     }
 
     public Edge addEdge(Vertex v, Vertex u, int w) {
+
+        boolean srcfound=false; //2 flags
         
-        boolean srcfound=false;
         boolean trgtfound=false;
         
-        for(int i = 0; i<vertices.size();i++){
+        for(int i = 0; i<vertices.size();i++){ //go thro all vertices
         
-            if(vertices.get(i).getLabel().equals(v.label)){
+            if(vertices.get(i).getLabel().equals(v.label)){ //if source found in vertices
             
-                srcfound=true;}
+                srcfound=true;
+                
+                v= vertices.get(i);} //assign v with source
         
-            else if(vertices.get(i).getLabel().equals(u.label)){
+            else if(vertices.get(i).getLabel().equals(u.label)){ //if u found in vertices
             
-                trgtfound=true;}}
+                trgtfound=true;
+                
+                u= vertices.get(i);}}//assign u with target 
         
         if(!srcfound){
         
-            vertices.add(v);}
+            vertices.add(v);} //if source not found add to vertices
                 
         if(!trgtfound){
         
-            vertices.add(u);}
+            vertices.add(u);}//if target not found add to vertices
+        
+         Edge newEdge = createEdge(vertices.get(Integer.parseInt(v.getLabel())), vertices.get(Integer.parseInt(u.getLabel())), w); //create new edge object between v and u 
 
-        Edge newEdge = createEdge(vertices.get(vertices.indexOf(v)), vertices.get(vertices.indexOf(u)), w); //create new edge object between v and u 
-
-        vertices.get(vertices.indexOf(v)).adjList.add(newEdge); //add this edge to the adjacency list of the v vertex
+        vertices.get(Integer.parseInt(v.getLabel())).adjList.add(newEdge); //add this edge to the adjacency list of the v vertex
 
         if (!isDigraph) { //if graph is undirected 	
 
