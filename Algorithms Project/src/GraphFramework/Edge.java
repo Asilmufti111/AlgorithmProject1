@@ -10,10 +10,10 @@ package GraphFramework;
  */
 public class Edge implements Comparable<Edge> {
 
-    int weight;
-    Vertex source;
-    Vertex target;
-    Vertex parent;
+    private int weight;
+    private Vertex source;
+    private Vertex target;
+    private Vertex parent;
 
 
 
@@ -72,9 +72,9 @@ public class Edge implements Comparable<Edge> {
     }
 
     public void displayInfo() {
-        System.out.print("Office No. " + source.label);
+        System.out.print("Office No. " + source.getLabel());
         System.out.print(" - ");
-        System.out.print("Office No. " + target.label);
+        System.out.print("Office No. " + target.getLabel());
         System.out.print(" : line length: " + weight + " ");
     }
 
