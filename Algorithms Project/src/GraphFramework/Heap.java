@@ -17,8 +17,8 @@ import java.util.Set;
 
 class MinHeap {
 
-    Map<String, Integer> vertexWeight;
-    String[] verticesKeyArray;
+    private Map<String, Integer> vertexWeight;
+    private String[] verticesKeyArray;
 
     MinHeap(Map<String, Integer> vertexWeight){//add vertex + the weight of the edge from source to this vertex
 
