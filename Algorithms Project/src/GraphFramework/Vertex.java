@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class Vertex {
 
-    String label;
-    Boolean isVisited;
-    List<Edge> adjList;
+    private String label;
+    private Boolean isVisited;
+    private List<Edge> adjList;
 
     public Vertex() {
         adjList = new LinkedList<>();
