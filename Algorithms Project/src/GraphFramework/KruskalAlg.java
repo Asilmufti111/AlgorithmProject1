@@ -141,7 +141,7 @@ public class KruskalAlg extends MSTAlgorithm {
     class Node { //representative of a vertex
 
     private String data; //vertex label 
-    private int rank;
+    private int rank; //rank of every vertex starts with 0, and increases if vertex is the 'leader'
     private Node representative; //node parent (who is its representative?)
 
     public String getData() {
