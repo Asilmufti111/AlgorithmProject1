@@ -86,16 +86,10 @@ public class PhNWDesignApp {
             System.out.println("(4) n= 5000, m= 15000\n(5) n= 5000, m= 25000");
             System.out.println("(6) n= 10000, m= 15000\n(7) n= 10000, m= 25000");
 
-            // ------- Read User Input for the Selected Case -------- //
-            System.out.print("Select your Test Option -> ");
-            userInput = input.nextInt(); // Option of the Case
-            while (userInput > 7 || userInput <= 0) {
-                System.out.println("Option not found.");
-                System.out.print("Select your Test Option -> ");
-                userInput = input.nextInt();
-            } // End of while
-
             do {
+                // ------- Read User Input for the Selected Case -------- //
+                System.out.print("Select your Test Option -> ");
+                userInput = input.nextInt(); // Option of the Case
                 switch (userInput) {
 
                     case 1: {
@@ -134,9 +128,10 @@ public class PhNWDesignApp {
                         edgesNo = 25000;
                     }
                     break;
-
+                    default:
+                        System.out.println("Option not found.");
                 }
-            } while (1 < 1 || 7 > 7);
+            } while (userInput > 7 || userInput < 1);
 
             // -------- IMPORTANT NOTE -------- //
             /**
@@ -181,4 +176,3 @@ public class PhNWDesignApp {
 
     }
 }
-
