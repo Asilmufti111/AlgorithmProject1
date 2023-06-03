@@ -18,24 +18,16 @@ public class MHPrimAlg extends MSTAlgorithm {
 	
 	// Data fields
 	private int cost = 0;
-                
-                
-                Map<String,Integer> vertexVal;
+        Map<String,Integer> vertexVal;
 
-    // Stores the Minimum spanning Tree
-                List<Edge> result;
-	
 	/**
 	 * PQPrimAlg Constructor
 	 * @param graph
 	 */
 	public MHPrimAlg(Graph graph) {
-            
-        	MSTresultList = new LinkedList<>(); // Array holds the edges of MST
 
-	}
-	
-	
+            MSTresultList = new LinkedList<>(); // Array holds the edges of MST
+}
 	/**
 	 * Shows Resulting MST
      * @param graph
@@ -43,11 +35,7 @@ public class MHPrimAlg extends MSTAlgorithm {
 
         @Override
 	public void findMST(Graph graph) {
-            vertexVal = new LinkedHashMap<>();
-
         // Stores the Minimum spanning Tree
-           
-            
             vertexVal = new LinkedHashMap<>();
 
         // Vertex to Edge Map
@@ -110,9 +98,6 @@ public class MHPrimAlg extends MSTAlgorithm {
 
         return edgeList;
     }
-
-	
-        
 
  @Override
     public void displayResultingMST() {
