@@ -92,11 +92,7 @@ public class PhNWDesignApp {
 
             do {
                 switch (userInput) {
-                    case 0: {
-                        verticesNo = 10;
-                        edgesNo = 100;
-                    }
-                    break;
+                  
                     case 1: {
                         verticesNo = 1000;
                         edgesNo = 10000;
