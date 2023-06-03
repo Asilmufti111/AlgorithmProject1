@@ -89,10 +89,15 @@ public class PhNWDesignApp {
             // ------- Read User Input for the Selected Case -------- //
             System.out.print("Select your Test Option -> ");
             userInput = input.nextInt(); // Option of the Case
+            while (userInput > 7 || userInput <= 0) {
+                System.out.println("Option not found.");
+                System.out.print("Select your Test Option -> ");
+                userInput = input.nextInt();
+            } // End of while
 
             do {
                 switch (userInput) {
-                  
+
                     case 1: {
                         verticesNo = 1000;
                         edgesNo = 10000;
@@ -130,11 +135,6 @@ public class PhNWDesignApp {
                     }
                     break;
 
-                    default:
-                        System.out.println("Option not found.");
-                        System.out.print("Select your Test Option -> ");
-                        //      userInput = input.nextInt(); // Option of the Case
-                        break;
                 }
             } while (1 < 1 || 7 > 7);
 
@@ -174,12 +174,11 @@ public class PhNWDesignApp {
             MSTAlgorithm.displayResultingMST();// Get the MST-Cost of Prim
             System.out.println("Running time for Min-heap Prim Algorithm: " + MHPrimlFinalTime);
 
-        } 
+        }
 
         input.close();
         System.out.println("Build Successful.");
 
-    } 
-} 
-
+    }
+}
 
