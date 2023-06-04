@@ -35,8 +35,8 @@ public class MHPrimAlg extends MSTAlgorithm {
 
         @Override
 	public void findMST(Graph graph) {
-        // Stores the Minimum spanning Tree
-            vertexVal = new LinkedHashMap<>();
+		//map in the heap
+		vertexVal = new LinkedHashMap<>();
 
         // Vertex to Edge Map
         Map<String, Edge> vertexToEdge = new HashMap<>();
@@ -44,10 +44,10 @@ public class MHPrimAlg extends MSTAlgorithm {
         // Assign all the initial values as infinity for all the Vertices.
         for(int i = 0 ;i<graph.verticesNo;i++){
             String v=graph.vertices.get(i).getLabel();
-            vertexVal.put(v,Integer.MAX_VALUE);//initialize to infinity (unknown)
+            vertexVal.put(v,Integer.MAX_VALUE);//initialize to infinity (unreachable,yet)
         }
 
-        MinHeap minHeap = new MinHeap(vertexVal);
+        MinHeap minHeap = new MinHeap(vertexVal); //pass the map to minheap
 
         // Call buildHeap() to create the MinHeap
         minHeap.buildHeap();
