@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
- *  @authors Asil, Qamar, Aroub,Khalida
+ *  @authors Asil, Qamar, Aroub,Khalida,Huda
  * B9A
  * CPCS-324
  * Project Code
