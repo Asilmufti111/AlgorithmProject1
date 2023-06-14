@@ -33,7 +33,7 @@ class MinHeap {
             min = right; //both left and right on left side of array and rigth is smaller than left, maek min = right
         } else if (left <= length) {
 
-            min = left;//left is smaller than right, make min = left
+            min = left;//left is smaller than the length, make min = left
         }
 
         if (vertexWeight.get(vertices[root]) > vertexWeight.get(vertices[min])) { //check if root is smaller then the 'min'
