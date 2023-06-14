@@ -16,8 +16,10 @@ public class Vertex {
     private Boolean isVisited;
     private List<Edge> adjList;
 
-    public Vertex() {
-        adjList = new LinkedList<>();
+    public Vertex(String label) { //creating new vertex
+        this.label = label; //value of vertex
+        this.isVisited = false; //vertex not visited yet 
+        adjList = new LinkedList<>(); //create new linkedlist for each vertex (for its edges)
     }
 
     public String getLabel() {
@@ -44,15 +46,8 @@ public class Vertex {
         this.adjList = adjList;
     }
 
-    public Vertex(String label) { //creating new vertex
-        this.label = label; //value of vertex
-        this.isVisited = false; //vertex not visited yet 
-        adjList = new LinkedList<>(); //create new linkedlist for each vertex (for its edges)
-    }
-
     public void displayInfo() {
         System.out.print(label);
     }
 
 }
-
