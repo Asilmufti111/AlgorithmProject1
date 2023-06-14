@@ -41,7 +41,5 @@ public class BluePrintGraph extends Graph {
     public Edge createEdge(Vertex source, Vertex target, int weight) {
         return new Line(source, target, weight);
     }
-    public void displayInfo(){
-    displayInfo();}
 
 }
