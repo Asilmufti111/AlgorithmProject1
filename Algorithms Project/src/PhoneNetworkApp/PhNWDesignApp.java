@@ -52,7 +52,7 @@ public class PhNWDesignApp {
             System.out.println("\n\n\t\t\t-Requirement 1 Using Read From Graph function-");
 
             File graphFile = new File("graph.txt"); // Read from File	 
-            BluePrintGraph phoneLine = new BluePrintGraph(graphFile); // Create An Object of Graph as CityMap
+            BluePrintGraph phoneLine = new BluePrintGraph(graphFile); // Create An Object of Graph as phoneLine
             MSTAlgorithm MSTAlgorithm;
 
             // --------------------------------------------- KRUSKAL ------------------------------------------------ //
