@@ -141,7 +141,7 @@ public class PhNWDesignApp {
              * show why we can not allow directed graphs. So, we will only work
              * on undirected graph.
              */
-            BluePrintGraph phoneLine = new BluePrintGraph(verticesNo, edgesNo, false); // Create An Object of BluePrintGraph as CityMap 
+            BluePrintGraph phoneLine = new BluePrintGraph(verticesNo, edgesNo, false); // Create An Object of BluePrintGraph as phoneLine 
             MSTAlgorithm MSTAlgorithm;
             System.out.println("\n***\nP.S. All generated graphs will remain undirected.\n***\n");
 
