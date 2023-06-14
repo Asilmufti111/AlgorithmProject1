@@ -66,11 +66,6 @@ public class Edge implements Comparable<Edge> {
         }
     }
 
-    public int parent(int pos) { // return the parent of the edge's node in the heap       
-       
-        return pos / 2;
-    }
-
     public void displayInfo() {
         System.out.print("Office No. " + source.getLabel());
         System.out.print(" - ");
