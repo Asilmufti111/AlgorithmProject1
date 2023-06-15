@@ -29,16 +29,15 @@ public class BluePrintGraph extends Graph {
         
     }
 
-
     // Create Vertex
     @Override
-    public Vertex createVertex(String label) {
+    public Office createVertex(String label) {
         return new Office(label);
     }
 
     // Create Edge
     @Override
-    public Edge createEdge(Vertex source, Vertex target, int weight) {
+    public Line createEdge(Vertex source, Vertex target, int weight) {
         return new Line(source, target, weight);
     }
 
